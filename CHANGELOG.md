@@ -4,6 +4,9 @@ Release notes for the cmd-ntrf/puppet-consul_template module.
 
 ------------------------------------------
 
+## 2.3.3 - 2021-10-13
+  * Fix changelog
+
 ## 2.3.2 - 2021-10-13
   * Add comptability with Rocky and AlmaLinux
 
