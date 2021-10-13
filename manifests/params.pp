@@ -27,7 +27,7 @@ class consul_template::params {
       default => 'systemd'
     },
 
-    /CentOS|RedHat/ => $facts['os']['release']['major'] ? {
+    /CentOS|RedHat|Rocky|AlmaLinux/ => $facts['os']['release']['major'] ? {
       '6' => 'sysv',
       default   => 'systemd',
     },
