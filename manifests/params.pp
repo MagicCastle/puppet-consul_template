@@ -4,7 +4,6 @@
 # It sets variables according to platform.
 #
 class consul_template::params {
-
   $os = downcase($facts['kernel'])
 
   case $facts['architecture'] {
@@ -14,6 +13,10 @@ class consul_template::params {
 
     'i386': {
       $arch = '386'
+    }
+
+    'aarch64': {
+      $arch = 'arm64'
     }
 
     default:           {
