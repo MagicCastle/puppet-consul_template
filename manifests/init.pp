@@ -19,9 +19,6 @@
 # [*extra_options*]
 #   Extra arguments to be passed to the consul-template agent
 #
-# [*init_style*]
-#   What style of init system your system uses.
-#
 # [*config_hash*]
 #   Consul-template configuration options. See https://github.com/hashicorp/consul-template#options
 #
@@ -50,7 +47,6 @@
 #   A hash of watches - allows greater Hiera integration. Defaults to `{}`.
 class consul_template (
   String $arch                               = $consul_template::params::arch,
-  String $init_style                         = $consul_template::params::init_style,
   String $os                                 = $consul_template::params::os,
   String $bin_dir                            = '/usr/local/bin',
   Hash $config_hash                          = {},
@@ -81,7 +77,6 @@ class consul_template (
   String $version                            = '0.22.0',
   Hash $watches                              = {},
 ) inherits consul_template::params {
-
   $_download_url = pick($download_url, "${download_url_base}/${version}/${package_name}_${version}_${os}_${arch}.${download_extension}")
 
   if $watches {

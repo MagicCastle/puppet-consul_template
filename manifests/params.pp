@@ -23,26 +23,4 @@ class consul_template::params {
       fail("Unsupported kernel architecture: ${facts['os']['architecture']}")
     }
   }
-
-  $init_style = $facts['os']['name'] ? {
-    'Ubuntu' => $facts['os']['release']['major'] ? {
-      '14.04' => 'upstart',
-      default => 'systemd'
-    },
-
-    /CentOS|RedHat|Rocky|AlmaLinux/ => $facts['os']['release']['major'] ? {
-      '6' => 'sysv',
-      default   => 'systemd',
-    },
-    'Fedora'        => $facts['os']['release']['major'] ? {
-      /(12|13|14)/ => 'sysv',
-      default      => 'systemd',
-    },
-    'Debian'        =>  $facts['os']['release']['major'] ? {
-      '7' => 'debian',
-      default     => 'systemd'
-    },
-
-    default => 'sysv'
-  }
 }

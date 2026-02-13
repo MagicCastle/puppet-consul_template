@@ -1,12 +1,12 @@
 {
-  "name": "cmdntrf-consul_template",
+  "name": "magiccastle-consul_template",
   "version": "2.3.8",
-  "author": "cmdntrf",
+  "author": "magiccastle",
   "summary": "Install and manage Consul Template and its jobs",
   "license": "Apache-2.0",
-  "source": "https://github.com/cmd-ntrf/puppet-consul_template",
-  "project_page": "https://github.com/cmd-ntrf/puppet-consul_template",
-  "issues_url": "https://github.com/cmd-ntrf/puppet-consul_template/issues",
+  "source": "https://github.com/magiccastle/puppet-consul_template",
+  "project_page": "https://github.com/magiccastle/puppet-consul_template",
+  "issues_url": "https://github.com/magiccastle/puppet-consul_template/issues",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
@@ -25,30 +25,15 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "6.0",
-        "7.0"
+        "8.0",
+        "9.0"
       ]
     },
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "6.0",
-        "7.0"
-      ]
-    },
-    {
-      "operatingsystem": "Debian",
-      "operatingsystemrelease": [
-        "7.0",
-        "8.0"
-      ]
-    },
-    {
-      "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [
-        "14.04",
-        "16.04",
-        "18.04"
+        "8.0",
+        "9.0"
       ]
     }
   ],
@@ -57,8 +42,5 @@
       "name": "puppet",
       "version_requirement": ">= 6.0.0"
     }
-  ],
-  "pdk-version": "2.1.0",
-  "template-url": "pdk-default#2.1.0",
-  "template-ref": "tags/2.1.0-0-ga675ea5"
+  ]
 }

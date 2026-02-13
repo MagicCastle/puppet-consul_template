@@ -1,7 +1,6 @@
 # == Class consul_template::intall
 #
 class consul_template::install {
-
   if ! empty($consul_template::data_dir) {
     file { $consul_template::data_dir:
       ensure => 'directory',
@@ -12,17 +11,12 @@ class consul_template::install {
   }
 
   if $consul_template::install_method == 'url' {
-
     include archive
-
-    if $facts['os']['name'] != 'darwin' {
-      ensure_packages(['tar'])
-    }
 
     archive { "/tmp/consul-template-${consul_template::version}.zip":
       source       => $consul_template::_download_url,
       extract      => true,
-      extract_path => "${consul_template::bin_dir}",
+      extract_path => $consul_template::bin_dir,
       creates      => "${consul_template::bin_dir}/consul-template",
       cleanup      => true,
     }
@@ -34,69 +28,18 @@ class consul_template::install {
     }
 
   } elsif $consul_template::install_method == 'package' {
-
     package { $consul_template::package_name:
       ensure => $consul_template::package_ensure,
     }
-
   } else {
     fail("The provided install method ${consul_template::install_method} is invalid")
   }
 
-  if $consul_template::init_style {
-
-    case $consul_template::init_style {
-      'upstart' : {
-        file { '/etc/init/consul-template.conf':
-          mode    => '0444',
-          owner   => 'root',
-          group   => 'root',
-          content => template('consul_template/consul-template.upstart.erb'),
-        }
-        file { '/etc/init.d/consul-template':
-          ensure => link,
-          target => '/lib/init/upstart-job',
-          owner  => root,
-          group  => root,
-          mode   => '0755',
-        }
-      }
-      'systemd' : {
-        file { '/lib/systemd/system/consul-template.service':
-          mode    => '0644',
-          owner   => 'root',
-          group   => 'root',
-          content => template('consul_template/consul-template.systemd.erb'),
-        }
-      }
-      'sysv' : {
-        file { '/etc/init.d/consul-template':
-          mode    => '0555',
-          owner   => 'root',
-          group   => 'root',
-          content => template('consul_template/consul-template.sysv.erb')
-        }
-      }
-      'debian' : {
-        file { '/etc/init.d/consul-template':
-          mode    => '0555',
-          owner   => 'root',
-          group   => 'root',
-          content => template('consul_template/consul-template.debian.erb')
-        }
-      }
-      'sles' : {
-        file { '/etc/init.d/consul-template':
-          mode    => '0555',
-          owner   => 'root',
-          group   => 'root',
-          content => template('consul_template/consul-template.sles.erb')
-        }
-      }
-      default : {
-        fail("I don't know how to create an init script for style ${consul_template::init_style}")
-      }
-    }
+  file { '/lib/systemd/system/consul-template.service':
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    content => template('consul_template/consul-template.systemd.erb'),
   }
 
   if $consul_template::manage_user {
