@@ -1,7 +1,7 @@
 # puppet-consul_template
 
 Fork of [claranet/puppet-consul_template](https://github.com/claranet/puppet-consul_template)
-that is compatible with Puppet 6.
+that is compatible with Puppet >= 6.
 
 ## Table of Contents
 
@@ -121,6 +121,3 @@ Depends on the JSON gem, or a modern ruby.
 
 * Copyright (C) 2017 Claranet
 * Distributed under the terms of the Apache License v2.0 - see LICENSE file for details.
-* To contribute, see the [contributing guide](CONTRIBUTING.md), then open an [issue](https://github.com/claranet/puppet-consul_template/issues) or
-[fork](https://github.com/claranet/puppet-consul_template/fork) and open a
-[Pull Request](https://github.com/claranet/puppet-consul_template/pulls)
