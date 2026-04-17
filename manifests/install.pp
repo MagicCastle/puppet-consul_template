@@ -1,7 +1,6 @@
 # == Class consul_template::intall
 #
 class consul_template::install {
-
   if ! empty($consul_template::data_dir) {
     file { $consul_template::data_dir:
       ensure => 'directory',
@@ -12,17 +11,16 @@ class consul_template::install {
   }
 
   if $consul_template::install_method == 'url' {
-
     include archive
 
     if $facts['os']['name'] != 'darwin' {
-      ensure_packages(['tar'])
+      stdlib::ensure_packages(['tar'])
     }
 
     archive { "/tmp/consul-template-${consul_template::version}.zip":
       source       => $consul_template::_download_url,
       extract      => true,
-      extract_path => "${consul_template::bin_dir}",
+      extract_path => $consul_template::bin_dir,
       creates      => "${consul_template::bin_dir}/consul-template",
       cleanup      => true,
     }
@@ -32,19 +30,15 @@ class consul_template::install {
         group => 0, # 0 instead of root because OS X uses "wheel".
         mode  => '0555';
     }
-
   } elsif $consul_template::install_method == 'package' {
-
     package { $consul_template::package_name:
       ensure => $consul_template::package_ensure,
     }
-
   } else {
     fail("The provided install method ${consul_template::install_method} is invalid")
   }
 
   if $consul_template::init_style {
-
     case $consul_template::init_style {
       'upstart' : {
         file { '/etc/init/consul-template.conf':
